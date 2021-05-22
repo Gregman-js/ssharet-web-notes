@@ -1,0 +1,95 @@
+{% extends '@App/base.html.twig' %}
+{% block stylesheets %}
+<link href="{{ asset('/assets/css/material-bootstrap-wizard.css') }}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+<style>
+.masthead
+{
+  background: none;
+  padding: 0;
+}
+body
+{
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(22, 22, 22, 0.3)), color-stop(75%, rgba(22, 22, 22, 0.7)), to(#161616)), url("/assets/img/join.png");
+  background: linear-gradient(to bottom, rgba(22, 22, 22, 0.3) 0%, rgba(22, 22, 22, 0.7) 75%, #161616 100%), url("/assets/img/join.png");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+.ssharet
+{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+div h2.quest
+{
+  font-size: 3em;
+  display: inline-block;
+  max-width: none;
+}
+div a.skipper
+{
+  color: rgba(255,255,255, 0.7);
+}
+div a.skipper:hover
+{
+  color: rgba(255,255,255, 0.7);
+}
+.masthead h1 {
+    font-size: 3rem;
+}
+a.cancel
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  border-radius: 3em;
+  margin: .5em 0 0 .5em;
+  padding: 1.5em 2em;
+  background-color: white;
+}
+.white-box
+{
+  background: white;
+  padding: 1.5em 2em;
+  color: #0f1117b8;
+  border-radius: 1em;
+}
+</style>
+{% endblock %}
+{% block javascripts %}
+<script src="/assets/js/jquery.bootstrap.js"></script>
+{% endblock %}
+{% block body %}
+  <a href="{{ path('room_clear', {'url': app.request.get('url') }) }}" class="btn cancel d-none d-md-inline-block"><i class="fas fa-undo"></i> Undo</a>
+  <!-- Header -->
+    <div class="masthead d-flex align-items-center">
+      <div class="mx-auto text-center">
+      <h1 class="mx-auto my-0 text-uppercase ssharet mt-3">Ssharet</h1>
+        <h2 class="text-white-50 mx-auto mt-2 mb-3 quest">Do you want to sing in?</h2>
+        <h2 class="mx-auto mt-2 mb-4 white-box">Connecting the room with your account allows you to keep it alive for more days and the possibility of editing it</h2>
+        <div style="my-1">
+          <a href="{{ path('fos_user_security_login') }}" class="btn btn-primary js-scroll-trigger" style="position: relative;">Sing in</a>
+          <a href="{{ path('user_register') }}" class="btn btn-primary js-scroll-trigger" style="position: relative;">Register</a>
+        </div>
+        <br>
+        <a href="{{ path('room_url', {'url': app.request.get('url') }) }}" class="skipper" style="position: relative;">Or skip</a>
+        
+      </div>
+    </div>
+  <!-- Footer -->
+  <footer class="small text-center text-white-50 fixed-bottom p-0 py-1">
+    <div class="container">
+      Copyright &copy; <a href="http://ssharet.com/" class="lnk-to-site">Ssharet.com</a> 2019
+    </div>
+  </footer>
+{% endblock %}

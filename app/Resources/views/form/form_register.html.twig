@@ -1,0 +1,64 @@
+{%- block form_label -%}
+    {%- set label = label|default(false) -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <div class="p-t-13 p-b-9">
+        {% set val = label_attr['class']|default("") %}
+        {% set label_attr = label_attr|merge({'class': val ~ ' txt1'}) %}
+            <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+                {%- if translation_domain is same as(false) -%}
+                    {{- label -}}
+                {%- else -%}
+                    {{- label|trans({}, translation_domain) -}}
+                {%- endif -%}
+            </{{ element|default('label') }}>
+        </div>
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{%- block form_widget_compound -%}
+    {%- if form is rootform -%}
+        {{ form_errors(form) }}
+    {%- endif -%}
+    {{- block('form_rows') -}}
+    {{- form_rest(form) -}}
+{%- endblock form_widget_compound -%}
+
+{%- block form_row -%}
+    {{- form_label(form) -}}
+    {{- form_widget(form) -}}
+    {{- form_errors(form) -}}
+{%- endblock form_row -%}
+
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+
+    {% set val = attr['class']|default("") %}
+    {% set attr = attr|merge({'class': val ~ 'input100'}) %}
+    {% if type != "hidden" %}
+    <div class="wrap-input100 validate-input">
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <span class="focus-input100"></span>
+    </div>
+    {% else %}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endif %}
+{%- endblock form_widget_simple -%}
+
+        {# <input class="input100" type="text" id="username" name="_username" value="Gregor" required="required" autocomplete="username"> #}

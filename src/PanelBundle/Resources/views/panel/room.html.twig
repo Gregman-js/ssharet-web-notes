@@ -1,0 +1,387 @@
+{% extends '@Panel/base.html.twig' %}
+{% block title_bar %}Rooms{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('assets/vendor/bootbox.js/dist/bootbox.min.js') }}"></script>
+<script>
+var homepage = "{{ url('homepage') }}";
+function confirm(href, title, desc) {
+  bootbox.confirm({
+    title: "Remove your Member?",
+    backdrop: true,
+    scrollable: true,
+    message: "Do you want to remove your participation in room? This cannot be undone.",
+    buttons: {
+        cancel: {
+            label: '<i class="fa fa-times"></i> Cancel'
+        },
+        confirm: {
+            label: '<i class="fa fa-check"></i> Confirm'
+        }
+    },
+    callback: function (result) {
+        if (result)window.location = href;
+    }
+});
+}
+$('.remove-room').on('click', function (e) {
+  e.preventDefault();
+  href = $(this).attr('href');
+  return confirm(href, "Destroy Room?", "Do you want to remove Room and whole content now? This cannot be undone.");
+});
+$('.remove-my-member').on('click', function (e) {
+  e.preventDefault();
+  href = $(this).attr('href');
+  return confirm(href, "Remove your Member?", "Do you want to remove your participation in room? This cannot be undone.");
+});
+$('.change-password').on('click', function (e) {
+  e.preventDefault();
+  url = $(this).attr('room-url');
+  return changePass(url);
+});
+$(document).on('click', '.enable-password', function (e) {
+  e.preventDefault();
+  url = $(this).attr('room-url');
+  return enablePass(url, $(this));
+});
+$(document).on('click', '.disable-password', function (e) {
+  e.preventDefault();
+  url = $(this).attr('room-url');
+  return disablePass(url, $(this));
+});
+
+function disablePass(roomUrl, to) {
+  bootbox.confirm("<h5 class='modal-title mb-4'>Disable Password</h5><form class='bootbox-form' action=''>\
+    Enter password:<input type='password' class='bootbox-input bootbox-input-password form-control new-pass-inp' /><br/>\
+    </form>", function(result) {
+        if(result){
+          var newPass = document.querySelector(".new-pass-inp").value;
+          $.ajax({
+            url: homepage + 'room/' + roomUrl + '/disable-password',
+            type: "POST",
+            dataType: "json",
+            data: {
+                "pass": newPass,
+            },
+            async: true,
+            success: function (data) {
+                for (let messege of data.messages) {
+                    appShowNotification(messege[0], messege[1]);
+                }
+                if (data.status) {
+                  to.toggleClass('btn-lnk-danger btn-lnk-info');
+                  to.toggleClass('disable-password enable-password');
+                  to.attr('title', 'Enable password');
+                  to.parent().find('.change-password').css('display', 'none');
+                  to.find("i").toggleClass('fa-lock fa-unlock-alt');
+                }
+            }
+        });
+        }
+});
+}
+function enablePass(roomUrl, to) {
+  bootbox.confirm("<h5 class='modal-title mb-4'>Enable Password</h5><form class='bootbox-form' action=''>\
+    New password:<input type='password' class='bootbox-input bootbox-input-password form-control new-pass-inp' /><br/>\
+    Repeat password:<input type='password' class='bootbox-input bootbox-input-password form-control repeat-pass-inp' />\
+    </form>", function(result) {
+        if(result){
+          var newPass = document.querySelector(".new-pass-inp").value;
+          var repeat = document.querySelector(".repeat-pass-inp").value;
+          $.ajax({
+            url: homepage + 'room/' + roomUrl + '/enable-password',
+            type: "POST",
+            dataType: "json",
+            data: {
+                "new": newPass,
+                "repeat": repeat
+            },
+            async: true,
+            success: function (data) {
+                for (let messege of data.messages) {
+                    appShowNotification(messege[0], messege[1]);
+                }
+                if (data.status) {
+                  to.toggleClass('btn-lnk-info btn-lnk-danger');
+                  to.toggleClass('enable-password disable-password');
+                  to.attr('title', 'Disable password');
+                  xd = to;
+                  to.parent().find('.change-password').css('display', 'inline-block');
+                  to.find("i").toggleClass('fa-unlock-alt fa-lock');
+                }
+            }
+        });
+        }
+});
+}
+var xd;
+function changePass(roomUrl) {
+  bootbox.confirm("<h5 class='modal-title mb-4'>Change Password</h5><form class='bootbox-form' action=''>\
+    Old password:<input type='password' class='bootbox-input bootbox-input-password form-control old-pass-inp' /><br/>\
+    New password:<input type='password' class='bootbox-input bootbox-input-password form-control new-pass-inp' /><br/>\
+    Repeat password:<input type='password' class='bootbox-input bootbox-input-password form-control repeat-pass-inp' />\
+    </form>", function(result) {
+        if(result){
+          var old = document.querySelector(".old-pass-inp").value;
+          var newPass = document.querySelector(".new-pass-inp").value;
+          var repeat = document.querySelector(".repeat-pass-inp").value;
+          $.ajax({
+            url: homepage + 'room/' + roomUrl + '/change-password',
+            type: "POST",
+            dataType: "json",
+            data: {
+                "old": old,
+                "new": newPass,
+                "repeat": repeat
+            },
+            async: true,
+            success: function (data) {
+                for (let messege of data.messages) {
+                    appShowNotification(messege[0], messege[1]);
+                }
+            }
+        });
+        }
+});
+}
+</script>
+{% endblock %}
+{% block body %}
+    <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Your Rooms</h4>
+                <a href="{{ path('panel_room_create') }}" class="btn btn-success create-room-btn">Create room</a>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Url
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Description
+                      </th>
+                      <th>
+                        Edited
+                      </th>
+                      <th class="text-center">
+                        Public
+                      </th>
+                      <th class="text-center">
+                        Guest<br>Access
+                      </th>
+                      <th class="text-center">
+                        Guest<br>Edit
+                      </th>
+                      <th class="text-right">
+                        Action
+                      </th>
+                    </thead>
+                    <tbody class="rooms-table-body">
+                      {% for room in rooms %}
+                        <tr class="{% if room.disabled %}tr-kreslik {% endif %}rooms-tr">
+                          <td class="{% if room.disabled %}kreslik{% endif %}">
+                            {{ room.url }}
+                          </td>
+                          <td class="{% if room.disabled %}kreslik{% endif %}">
+                            {{ room.name }}
+                            {# {% if room.password != null %}
+                              <i class="material-icons vpn-key">vpn_key</i>
+                            {% endif %} #}
+                          </td>
+                          <td class="{% if room.disabled %}kreslik{% endif %}">
+                            {{ room.shortDescription }}
+                          </td>
+                          <td class="{% if room.disabled %}kreslik{% endif %}">
+                            {{ room.edited|date("H:i:s d-m-Y") }}
+                          </td>
+                          <td class="text-center"{% if room.disabled %} style="opacity: 0.7"{% endif %}>
+                            <a class="btn btn-link change-border" href="{{ path('panel_room_change_public', {'url': room.url}) }}">
+                              {% if room.public %}
+                                <i class="fas fa-check check-true"></i>
+                              {% else %}
+                                <i class="fas fa-times check-false"></i>
+                              {% endif %}
+                            </a>
+                          </td>
+                          <td class="text-center"{% if room.disabled %} style="opacity: 0.7"{% endif %}>
+                            <a class="btn btn-link change-border" href="{{ path('panel_room_guest_access_negate', {'url': room.url}) }}">
+                              {% if room.guestAccess %}
+                                <i class="fas fa-check check-true"></i>
+                              {% else %}
+                                <i class="fas fa-times check-false"></i>
+                              {% endif %}
+                            </a>
+                          </td>
+                          <td class="text-center"{% if room.disabled %} style="opacity: 0.7"{% endif %}>
+                            <a class="btn btn-link change-border" href="{{ path('panel_room_guest_edit_negate', {'url': room.url}) }}">
+                              {% if room.guestEdit %}
+                                <i class="fas fa-check check-true"></i>
+                              {% else %}
+                                <i class="fas fa-times check-false"></i>
+                              {% endif %}
+                            </a>
+                          </td>
+                          <td class="text-right room-actions">
+                            <a class="btn btn-link btn-lnk-warning change-password{% if room.disabled %} col-dis disabled{% endif %}" style="{{ room.password == null ? "display: none;" }}" title="Change password" room-url="{{ room.url }}" href="">
+                              <i class="fas fa-key"></i>
+                            </a>
+                            {% if room.password != null %}
+                              <a class="btn btn-link btn-lnk-danger disable-password{% if room.disabled %} col-dis disabled{% endif %}" title="Disable password" room-url="{{ room.url }}" href="">
+                                <i class="fas fa-lock"></i>
+                              </a>
+                            {% else %}
+                              <a class="btn btn-link btn-lnk-info enable-password{% if room.disabled %} col-dis disabled{% endif %}" title="Enable password" room-url="{{ room.url }}" href="">
+                                <i class="fas fa-unlock-alt"></i>
+                              </a>
+                            {% endif %}
+                            <a class="doors btn btn-link btn-lnk-success{% if room.disabled %} col-dis disabled{% endif %}" title="Visit room" href="{{ path('room_url', {'url': room.url}) }}">
+                              {# <i class="material-icons">edit</i> #}
+                              <i class="fas fa-door-closed"></i>
+                              <i class="fas fa-door-open"></i>
+                            </a>
+                            <a class="btn btn-link btn-lnk-info" title="{% if room.disabled %}Enable{% else %}Disable{% endif %}" href="{{ path('panel_room_change_status', {'url': room.url}) }}">
+                            {% if room.disabled %}
+                              <i class="fas fa-toggle-off text-danger"></i>
+                            {% else %}
+                              <i class="fas fa-toggle-on text-success"></i>
+                            {% endif %}
+                            </a>
+                            <a class="btn btn-link btn-lnk-danger remove-room" title="Delete" href="{{ path('panel_room_clear', {'url': room.url}) }}">
+                              <i class="material-icons">close</i>
+                            </a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      {% if rooms|length == 0 %}
+                      <tr>
+                          <td colspan="8" class="text-center" style="color: #555;">
+                            You don't have any rooms.
+                          </td>
+                        </tr>
+                      {% endif %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card card-plain">
+              <div class="card-header">
+                <h4 class="card-title">Other Rooms</h4>
+                <p class="card-category">These are other rooms which you visit</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Url
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Description
+                      </th>
+                      <th>
+                        Edited
+                      </th>
+                      <th class="text-center">
+                        Public
+                      </th>
+                      <th class="text-center">
+                        Guest<br>Access
+                      </th>
+                      <th class="text-center">
+                        Guest<br>Edit
+                      </th>
+                      <th class="text-right">
+                        Action
+                      </th>
+                    </thead>
+                    <tbody class="other-rooms">
+                      {% for member in app.user.roomMembers if member.status == "approve" %}
+                        <tr class="{% if member.room.disabled %}tr-kreslik{% endif %}">
+                          <td class="{% if member.room.disabled %}kreslik{% endif %}">
+                            {{ member.room.url }}
+                          </td>
+                          <td class="{% if member.room.disabled %}kreslik{% endif %}">
+                            {{ member.room.name }}
+                            {% if member.room.password != null %}
+                              <i class="material-icons vpn-key">vpn_key</i>
+                            {% endif %}
+                          </td>
+                          <td class="{% if member.room.disabled %}kreslik{% endif %}">
+                            {{ member.room.shortDescription }}
+                          </td>
+                          <td class="{% if member.room.disabled %}kreslik{% endif %}">
+                            {{ member.room.edited|date("H:i:s d-m-Y") }}
+                          </td>
+                          <td class="text-center"style="opacity: 0.7">
+                            <a class="btn btn-link change-border others-room-prop">
+                              {% if member.room.public %}
+                                <i class="fas fa-check check-true"></i>
+                              {% else %}
+                                <i class="fas fa-times check-false"></i>
+                              {% endif %}
+                            </a>
+                          </td>
+                          <td class="text-center"style="opacity: 0.7">
+                            <a class="btn btn-link change-border others-room-prop">
+                              {% if member.room.guestAccess %}
+                                <i class="fas fa-check check-true"></i>
+                              {% else %}
+                                <i class="fas fa-times check-false"></i>
+                              {% endif %}
+                            </a>
+                          </td>
+                          <td class="text-center" style="opacity: 0.7">
+                            <a class="btn btn-link change-border others-room-prop">
+                              {% if member.room.guestEdit %}
+                                <i class="fas fa-check check-true"></i>
+                              {% else %}
+                                <i class="fas fa-times check-false"></i>
+                              {% endif %}
+                            </a>
+                          </td>
+                          <td class="text-right room-actions">
+                            <a class="doors btn btn-link btn-lnk-success{% if member.room.disabled %} col-dis disabled{% endif %}" title="Visit room" href="{{ path('room_url', {'url': member.room.url}) }}">
+                              {# <i class="material-icons">edit</i> #}
+                              <i class="fas fa-door-closed"></i>
+                              <i class="fas fa-door-open"></i>
+                            </a>
+                            {# <a class="btn btn-link btn-lnk-warning" title="{% if member.room.disabled %}Enable{% else %}Disable{% endif %}" href="{{ path('panel_room_change_status', {'url': member.room.url}) }}">
+                            {% if member.room.disabled %}
+                              <i class="fas fa-toggle-off text-danger"></i>
+                            {% else %}
+                              <i class="fas fa-toggle-on text-success"></i>
+                            {% endif %}
+                            </a> #}
+                            <a class="btn btn-link btn-lnk-danger remove-my-member" title="Remove your member" href="{{ path('room_member_remove', {'url': member.room.url}) }}">
+                              <i class="material-icons">close</i>
+                            </a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      {% if app.user.roomMembers|length == 0 %}
+                        <tr>
+                          <td colspan="8" class="text-center" style="color: #555;">
+                            You don't have other rooms.
+                          </td>
+                        </tr>
+                      {% endif %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}

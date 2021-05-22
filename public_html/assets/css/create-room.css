@@ -1,0 +1,815 @@
+#createRoom {
+    padding-top: 10px;
+}
+
+.create-row .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.create-row .info-text {
+    width: 100%;
+}
+
+.create-row .input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-top-color: rgb(204, 204, 204);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-right-color: rgb(204, 204, 204);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-color: rgb(204, 204, 204);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(204, 204, 204);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-radius: 4px;
+}
+
+.create-row .input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+/*! CSS Used from: https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons */
+
+.create-row .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+/*! CSS Used from: https://demos.creative-tim.com/material-bootstrap-wizard/assets/css/bootstrap.min.css */
+
+small {
+    font-size: 80%;
+}
+
+.create-row input {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
+.create-row input::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+.create-row input {
+    line-height: normal;
+}
+
+
+:after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.create-row input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+small {
+    font-size: 85%;
+}
+
+.create-row .col-sm-6 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width:768px) {
+    .col-sm-6 {
+        float: left;
+    }
+    .col-sm-6 {
+        width: 50%;
+    }
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.create-row .form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.create-row .form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.create-row .form-control::-moz-placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+.create-row .form-control:-ms-input-placeholder {
+    color: #999;
+}
+
+.create-row .form-control::-webkit-input-placeholder {
+    color: #999;
+}
+
+.create-row .form-group {
+    margin-bottom: 15px;
+}
+
+.create-row .input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+.create-row .input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.create-row .input-group .form-control, .input-group-addon {
+    display: table-cell;
+}
+
+.create-row .input-group .form-control:not(:first-child):not(:last-child) {
+    border-radius: 0;
+}
+
+.create-row .input-group-addon {
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.create-row .input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.create-row .input-group-addon:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.create-row .input-group-addon:first-child {
+    border-right: 0;
+}
+
+.create-row .wizard-card[data-color="green"] .form-group .form-control {
+    background-image: linear-gradient(#4caf50, #4caf50), linear-gradient(#D2D2D2, #D2D2D2);
+}
+
+.create-row .form-control {
+    height: 36px;
+    padding: 7px 0;
+    font-size: 14px;
+    line-height: 1.42857;
+}
+
+.create-row .form-control::-moz-placeholder, .form-group .form-control::-moz-placeholder {
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-control:-ms-input-placeholder, .form-group .form-control:-ms-input-placeholder {
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-control::-webkit-input-placeholder, .form-group .form-control::-webkit-input-placeholder {
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-group {
+    position: relative;
+}
+
+.create-row .form-group.label-floating label.control-label {
+    position: absolute;
+    pointer-events: none;
+    transition: 0.3s ease all;
+}
+
+.create-row .form-group.label-floating label.control-label {
+    will-change: left, top, contents;
+}
+
+.create-row .form-control {
+    margin-bottom: 7px;
+}
+
+.create-row .form-control::-moz-placeholder {
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-control:-ms-input-placeholder {
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-control::-webkit-input-placeholder {
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+label {
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+label.control-label {
+    font-size: 11px;
+    line-height: 1.07143;
+    color: #AAAAAA;
+    font-weight: 400;
+    margin: 16px 0 0 0;
+}
+
+.create-row .form-group {
+    padding-bottom: 7px;
+    margin: 27px 0 0 0;
+}
+
+.create-row .form-group .form-control {
+    margin-bottom: 7px;
+}
+
+.create-row .form-group .form-control::-moz-placeholder {
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-group .form-control:-ms-input-placeholder {
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-group .form-control::-webkit-input-placeholder {
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-group label {
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #AAAAAA;
+    font-weight: 400;
+}
+
+.create-row .form-group label.control-label {
+    font-size: 11px;
+    line-height: 1.07143;
+    color: #AAAAAA;
+    font-weight: 400;
+    margin: 16px 0 0 0;
+}
+
+.create-row .form-group.label-floating label.control-label {
+    top: -7px;
+    font-size: 14px;
+    line-height: 1.42857;
+}
+
+.create-row .input-group .input-group-addon {
+    border: 0;
+    background: transparent;
+    padding: 6px 15px 0px;
+}
+
+/*! CSS Used fontfaces */
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+/*! CSS Used from: https://demos.creative-tim.com/material-bootstrap-wizard/assets/css/bootstrap.min.css */
+
+.create-row input {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
+.create-row input::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+.create-row input {
+    line-height: normal;
+}
+
+@media print {
+    *, :after, :before {
+        color: #000!important;
+        text-shadow: none!important;
+        background: 0 0!important;
+        -webkit-box-shadow: none!important;
+        box-shadow: none!important;
+    }
+}
+
+.create-row input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+#nextBtn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#nextBtn:active:focus, #nextBtn:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+#nextBtn:focus, #nextBtn:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+#nextBtn:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+#nextBtn {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+#nextBtn:focus {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #255625;
+}
+
+#nextBtn:hover {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+#nextBtn:active {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+#nextBtn:active:focus, #nextBtn:active:hover {
+    color: #fff;
+    background-color: #398439;
+    border-color: #255625;
+}
+
+#nextBtn:active {
+    background-image: none;
+}
+
+/*! CSS Used from: https://demos.creative-tim.com/material-bootstrap-wizard/assets/css/material-bootstrap-wizard.css */
+
+.create-row input[type="button"]::-moz-focus-inner {
+    outline: 0!important;
+}
+
+.create-row .wizard-card #nextBtn {
+    text-transform: uppercase;
+}
+
+#nextBtn {
+    border: none;
+    border-radius: 3px;
+    position: relative;
+    padding: 12px 30px;
+    margin: 10px 1px;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    will-change: box-shadow, transform;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#nextBtn::-moz-focus-inner {
+    border: 0;
+}
+
+#nextBtn {
+    box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
+}
+
+#nextBtn:focus, #nextBtn:active, #nextBtn:hover {
+    box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2);
+}
+
+#nextBtn:disabled, #nextBtn:disabled:hover, #nextBtn:disabled:focus, #nextBtn:disabled:active {
+    box-shadow: none;
+}
+
+#nextBtn {
+    box-shadow: 0 2px 2px 0 rgba(76, 175, 80, 0.14), 0 3px 1px -2px rgba(76, 175, 80, 0.2), 0 1px 5px 0 rgba(76, 175, 80, 0.12);
+}
+
+#nextBtn, #nextBtn:hover, #nextBtn:focus, #nextBtn:active, #nextBtn:active:focus, #nextBtn:active:hover {
+    background-color: #4caf50;
+    color: #FFFFFF;
+}
+
+#nextBtn:focus, #nextBtn:active, #nextBtn:hover {
+    box-shadow: 0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2);
+}
+
+#nextBtn:disabled, #nextBtn:disabled:hover, #nextBtn:disabled:focus, #nextBtn:disabled:active {
+    box-shadow: none;
+}
+
+#nextBtn:focus, #nextBtn:active, #nextBtn:active:focus {
+    outline: 0;
+}
+
+.create-row .ripple-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.create-row .ripple {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+    border-radius: 100%;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1);
+    transform-origin: 50%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.create-row .ripple.ripple-on {
+    transition: opacity 0.15s ease-in 0s, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+    opacity: 0.1;
+}
+
+@media (min-width: 768px) {
+    #nextBtn-wd {
+        min-width: 140px;
+    }
+}
+
+/*! CSS Used from: https://demos.creative-tim.com/material-bootstrap-wizard/assets/css/demo.css */
+
+@media (max-width: 768px) {
+    #nextBtn {
+        margin-bottom: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    #nextBtn-wd {
+        min-width: 140px;
+    }
+}
+
+.create-row .pull-right {
+    float: right!important;
+}
+
+#nextBtn:hover {
+    box-shadow: 0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2);
+}
+
+.create-row .small-text {
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+}
+
+.create-row .pull-left {
+    float: left!important;
+}
+
+.create-row .pull-left .btn-previous {
+    background-color: #999999;
+    color: #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
+    border: none;
+    border-radius: 3px;
+    position: relative;
+    padding: 12px 30px;
+    margin: 10px 1px;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    will-change: box-shadow, transform;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.create-row .form-group .control-label {
+    left: 0;
+}
+
+.create-row .btn-finish {
+    padding: 12px 30px;
+    margin: 10px 1px;
+}
+
+/* Switcher */
+
+.create-row .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    padding: 6px 15px 10px;
+    z-index: 100;
+}
+
+.create-row .switch .checkbox-switch {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.create-row .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.create-row .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.create-row .checkbox-switch:checked+.slider {
+    background-color: #4caf50;
+}
+
+.create-row .checkbox-switch:focus+.slider {
+    box-shadow: 0 0 1px #4caf50;
+}
+
+.create-row .checkbox-switch:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+
+.create-row .slider.round {
+    border-radius: 34px;
+}
+
+.create-row .slider.round:before {
+    border-radius: 50%;
+}
+
+/* end */
+
+#about-page {
+    overflow: hidden;
+}
+
+.create-row .vpn-key {
+    transition: all .5s;
+}
+
+.create-row .vpn-key-out {
+    padding-top: 3px !important;
+}
+
+@media only screen and (min-width: 992px) {
+    #mainNav .navbar-nav .bar-item {
+        font-weight: bold;
+    }
+    #mainNav:not(.navbar-shrink) .bar-item a.nav-link {
+        color: rgba(255, 255, 255, .6);
+        transition: all .1s;
+        -webkit-box-shadow: 0px 0 0 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0 0 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0 0 0px rgba(0, 0, 0, 0.75);
+        border-radius: 0 0 20px 20px;
+    }
+    #mainNav:not(.navbar-shrink) .bar-item a.nav-link:hover {
+        color: rgba(255, 255, 255, .8);
+        background-color: rgb(46, 67, 75);
+        -webkit-box-shadow: 0px 6px 22px 2px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 6px 22px 2px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 6px 22px 2px rgba(0, 0, 0, 0.75);
+    }
+}
+
+.create-row .hidder {
+    transition: all 300ms;
+    position: relative;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.create-row .show-pass {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#pas-info {
+    position: relative;
+    bottom: 0;
+    transition: all 300ms;
+}
+
+.create-row .tab-content {
+    min-height: 358px;
+}
+
+.create-row .btn-previous, .btn-finish, .btn-next {
+    height: 43px;
+}
+
+.create-row .lnk-to-site {
+    color: #fff;
+}
+
+.create-row .lnk-to-site:hover {
+    color: #ccc;
+}
+
+section.liner-whiter {
+    padding-top: 10rem;
+    background: linear-gradient(to bottom, rgba(22, 22, 22, .8), rgba(22, 22, 22, .3) 75%, #f8f9fa 100%)
+}
+
+.create-row .li-errors {
+    color: red;
+    font-size: 10px;
+}
+
+.create-row .ul-errors {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.create-row
+{
+    font-family: Nunito;
+    letter-spacing: .0625em;
+}
+div .urlsy {
+    margin-top: 0;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.create-row .urlsy input {
+    width: 90px;
+    display: inline-block;
+}
+
+.create-row .url-prefix {
+    font-size: 1rem;
+    line-height: 45px;
+    padding: 0;
+    text-align: right;
+    float: left;
+}
+
+div .btn.btn-success.url-copy {
+    display: inline-block;
+    padding: 10px;
+    letter-spacing: inherit;
+    display: inline-block;
+    background-color: #00ffdc;
+    width: 39px;
+    border-radius: 8px;
+}

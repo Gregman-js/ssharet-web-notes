@@ -1,0 +1,30 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% form_theme form 'form/form_register.html.twig' '@App/form/form_errors.html.twig' %}
+
+<script>
+       function onSubmit(token) {
+         document.getElementsByClassName("login-form")[0].submit();
+       }
+     </script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+{{ form_start(form, {'method': 'post', 'action': path('user_register'), 'attr': {'class': 'fos_user_registration_register login-form'}}) }}
+    <span class="login-form-title" style="padding-bottom: .16em;">
+        Sign Up
+    </span>
+    {{ form_widget(form) }}
+    <div class="container-login100-form-btn" style="margin-top: 20px;">
+        <button class="login100-form-btn g-recaptcha" data-sitekey="{{ recaptcha_public }}" data-callback="onSubmit">
+            {{ 'registration.submit'|trans }}
+        </button>
+    </div>
+    <div class="w-member text-center">
+        <span class="txt2">
+            Already have an account?
+        </span>
+        <a href="{{ path('fos_user_security_login') }}" class="txt2 bo1">
+            Sign in now
+        </a>
+    </div>
+{{ form_end(form) }}

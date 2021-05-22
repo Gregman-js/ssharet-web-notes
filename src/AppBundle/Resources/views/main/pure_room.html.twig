@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <title>{% block title %}Room - Panel - Ssharet.com - share texts and files with others in rooms{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <link rel="stylesheet" href="{{ asset('/assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        <link href="{{ asset('/assets/css/fontawesome-free.min.css') }}" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{{ asset('/assets/css/main.css') }}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+        <link href="/assets/css/panel/paper-dashboard.css" rel="stylesheet" />
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+        <link href="/assets/css/panel/demo.css" rel="stylesheet" />
+        <link href="/assets/css/panel/panel.css" rel="stylesheet" />
+        <link href="/assets/css/panel/room.css" rel="stylesheet" />
+        <link href="/assets/vendor/jodit/build/jodit.min.css" rel="stylesheet" />
+
+    </head>
+    <body>
+    {% set admin = room.user == app.user ? true : false %}
+    <div class="wrapper ">
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="logo">
+              <a href="{{ path('homepage') }}" class="simple-text">
+                  <div class="logo-img">
+                      <i class="fas fa-share-alt"></i>
+                  </div>
+                  Ssharet.com
+              </a>
+            </div>
+            <span class="navbar-brand" style="color: #66615B;">{% block title_bar %}Rooms - {{ room.name }}{% endblock %}</span>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" style="height: 38px;" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn-magnify" href="#pablo">
+                  <i class="nc-icon nc-layout-11"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item btn-rotate dropdown a-centered">
+                <a class="nav-link text-center" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Notifications</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <ul class="messbar-ul">
+                      <li class="dropdown-messbar-item">
+                      </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-rotate" href="#pablo">
+                  <i class="nc-icon nc-settings-gear-65"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="content">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-12">
+                <div id="note-id" class="d-none note-id-class">{{ room.notes.first ? room.notes.first.id : '1' }}</div>
+                <h4 class="card-title mt-0 d-inline-block ml-1" id="main-note-title" {% if admin %} class="main-note-title-bar" contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"{% endif %}>{{ room.notes.first ? room.notes.first.title : 'Title' }}</h4>
+                <span class="card-category" id="main-note-autor">{{ room.notes.first ? (room.notes.first.user ? fullname(room.notes.first.user) : "GUEST"): (app.user ? fullname(app.user) : "GUEST") }}</span>
+                <div class="card-category" id="main-note-edited" style="float: right;">{{ room.notes.first ? room.notes.first.edited|date("H:i:s d-m-Y") : "now"|date("H:i:s d-m-Y") }}</div>
+                <div class="card" style="z-index: 11">
+                  {# <div class="card-header">
+                  </div> #}
+                  <div class="card-body" id="editor">
+                  {{ room.notes.first ? room.notes.first.content|purify }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-5 col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">Room Members</h4>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-unstyled team-members">
+                      <li>
+                        <div class="row">
+                          <div class="col-md-2 col-2">
+                            <div class="avatar">
+                              <img class="img-circle img-no-padding img-responsive" src="{% if room.user and room.user.pictureFilename is not empty %}{{ asset('uploads/profile-pictures/' ~ room.user.pictureFilename) }}{% else %}{{ defaultPicture }}{% endif %}" alt="Profile Picture">
+                            </div>
+                          </div>
+                          <div class="col-md-7 col-7">
+                            {{ room.user ? fullname(room.user) : "GUEST" }}
+                            <br>
+                            <span class="text-info">
+                              <small>Admin</small>
+                            </span>
+                          </div>
+                          <div class="col-md-3 col-3 text-right">
+                            <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
+                          </div>
+                        </div>
+                      </li>
+                      {% for member in room.members if member.status == "approve" %}
+                      <li>
+                        <div class="row" user-member="{{ member.user.username }}">
+                          <div class="col-md-2 col-2">
+                            <div class="avatar">
+                              <img class="img-circle img-no-padding img-responsive" src="{% if member.user.pictureFilename is not empty %}{{ asset('uploads/profile-pictures/' ~ app.user.pictureFilename) }}{% else %}{{ defaultPicture }}{% endif %}" alt="Profile Picture">
+                            </div>
+                          </div>
+                          <div class="col-md-7 col-7">
+                            {{ fullname(member.user) }}
+                            <br>
+                            <span class="text-success">
+                              <small class="text-capitalize">{% if app.user == member.user %}You{% else %}{{ member.status }}{% endif %} - {% if admin %}<a title="Change permission" href="{{ path('change_member_permission', {'roomMember': member.id}) }}">{% endif %}{% if member.writeRight == true %}Write Access{% else %}Read Access{% endif %}{% if admin %}</a>{% endif %}</small>
+                            </span>
+                          </div>
+                          <div class="col-md-3 col-3 text-right">
+                            {% if admin %}<btn class="btn btn-sm btn-outline-danger btn-round btn-icon user-member-remove"><i class="fa fa-trash"></i></btn>{% endif %}
+                          </div>
+                        </div>
+                      </li>
+                      {% endfor %}
+                      {% if room.user == app.user %}
+                        <li>
+                          <div class="form-group" style="margin: 0 -2px;">
+                            <div class="position-relative">
+                              <input type="text" class="form-control" id="search-user-input" style="height: 36px" placeholder="Username">
+                              <div class="search-user-btn">
+                                <btn class="btn btn-sm btn-outline-info btn-round btn-icon m-0 search-user-search">
+                                <i class="fas fa-plus" style="line-height: 24px; font-size: 17px;"></i>
+                                </btn>
+                              </div>
+                            </div>
+                            <label>Add new user to room</label>
+                          </div>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-5 col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            {% if fileForm is defined and fileForm is not null %}
+              {{ form_start(fileForm, {'attr': {'id': 'file-form-id'}}) }}
+                <h4 class="card-title card-files-title">Files
+                  <label for="note_files_file">
+                    <btn class="btn btn-sm btn-outline-info btn-round btn-icon m-0 add-file-label">
+                      <i class="fas fa-plus" style="line-height: 24px; font-size: 17px;"></i>
+                    </btn>
+                  </label>
+                  {{ form_widget(fileForm.file) }}
+                  {{ form_errors(fileForm.file) }}
+                </h4>
+              {{ form_end(fileForm) }}
+            <script>
+              document.getElementById("note_files_file").onchange = function() {
+                  document.getElementById("file-form-id").submit();
+              };
+            </script>
+            {% else %}
+            <h4 class="card-title card-files-title">Files</h4>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled team-members">
+              {% for file in room.files %}
+                <li>
+                  <div class="row">
+                    <div class="col-md-7 col-7">
+                      <a target="_blank" href="{{ path('file_serve', {fileName: file.fileName}) }}">{{ file.name }}</a>
+                      <br>
+                      <span class="text-success">
+                        <small class="text-capitalize">File</small>
+                      </span>
+                    </div>
+                    <div class="col-md-5 col-5 text-right">
+                      <btn f-url="{{ url('file_serve', {fileName: file.fileName}) }}" class="btn btn-sm btn-outline-primary btn-round btn-icon user-file-copy"><i class="fas fa-copy"></i></btn>
+                      <btn f-url="{{ url('file_download', {fileName: file.fileName}) }}" onclick="window.location = this.getAttribute('f-url')" class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fas fa-download"></i></btn>
+                      {% if (file.user == app.user and wPer) or room.user == app.user %}<btn f-id="{{ file.id }}" class="btn btn-sm btn-outline-danger btn-round btn-icon user-file-remove"><i class="fa fa-trash"></i></btn>{% endif %}
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+            </div>
+          </div>
+          <div class="col-lg-3 offset-lg-1">
+            <div class="position-relative">
+              <h4 class="card-title mt-0">Others note</h4>
+              {% if wPer %}<a href="" class="btn btn-success new-note-btn">New Note</a>{% endif %}
+            </div>
+            <div class="row other-row">
+              {% for note in room.notes %}
+              <div class="col-sm-6 col-lg-12{{ note == room.notes.first ? " col-note-hide" }}">
+                <div class="note-remover" note-id="{{ note.id }}">
+                  <i class="fas fa-times check-false"></i>
+                </div>
+                <div class="card others-card{{ note == room.notes.first ? " card-hide" }}">
+                  <div class="card-body">
+                    <div class="others-note-id d-none">{{ note.id }}</div>
+                    <div class="others-note-autor">{% if note.user %}{{ fullname(note.user) }}{% else %}GUEST{% endif %}</div>
+                    <h4 class="m-0">{{ note.title }}</h4>
+                    <div class="others-note-edited" style="text-align: right;">{{ note.edited|date("H:i:s d-m-Y") }}</div>
+                    <div class="d-none others-note-content">
+                      {{ note.content|purify }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="card" id="moving-card">
+          <div class="card-body">
+            <div class="others-note-autor">Costam</div>
+            <h4 class="m-0">XXX</h4>
+            <div class="others-note-edited" style="text-align: right;">XXXX</div>
+            <div class="others-note-content">
+            </div>
+          </div>
+        </div>
+      </div>
+    <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+          <div class="row">
+            <nav class="footer-nav">
+              <ul>
+                <li>
+                  <a href="{{ path("homepage") }}" target="_blank">Ssharet.com</a>
+                </li>
+                <li>
+                  <a href="http://ssharet.com/license" target="_blank">Licenses</a>
+                </li>
+              </ul>
+            </nav>
+            <div class="credits ml-auto">
+              <span class="copyright">
+                ©
+                <script>
+                  document.write(new Date().getFullYear())
+                </script>, Ssharet.com
+                <!-- made by Creative Tim https://www.creative-tim.com/product/paper-dashboard-2 -->
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+        <script type="text/javascript" src="{{ asset('/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/assets/vendor/popper.js/dist/umd/popper.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        
+        <script src="/assets/js/panel/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!--  Google Maps Plugin    -->
+        <!-- Chart JS -->
+        <script src="/assets/js/panel/plugins/chartjs.min.js"></script>
+        <!--  Notifications Plugin    -->
+        <script src="/assets/js/panel/plugins/bootstrap-notify.js"></script>
+        <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/assets/js/panel/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+        <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+        <script src="/assets/js/panel/demo.js"></script>
+
+        <script>
+        var roomUrl = "{{ room.url }}";
+        var updateUrl = "{{ url('room_url', {"url": room.url}) }}";
+        var roomDisabled = {{ wPer ? "false" : "true" }};
+        </script>
+        <script src="{{ asset('assets/vendor/jodit/build/jodit.min.js') }}"></script>
+        <script src="{{ asset('assets/js/panel/room.js') }}"></script>
+        <script>
+          window.addEventListener('DOMContentLoaded', (event) => {
+              {% for label, messages in app.flashes %}
+                  {% for message in messages %}
+                      appShowNotification('{{ label }}','{{ message|raw }}');
+                  {% endfor %}
+              {% endfor %}
+          });
+
+        function appShowNotification(label, notif) {
+            color = label;
+
+            $.notify({
+              icon: "far fa-bell",
+              message: notif
+
+            }, {
+              type: color,
+              timer: 8000,
+              placement: {
+                from: 'bottom',
+                align: 'right'
+              }
+            });
+          }
+        </script>
+    </body>
+</html>

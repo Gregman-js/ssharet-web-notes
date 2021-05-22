@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <title>{% block title %}Room - Panel - Ssharet.com - share texts and files with others in rooms{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149346594-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-149346594-1');
+        </script>
+
+
+        <link rel="stylesheet" href="{{ asset('/assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        <link href="{{ asset('/assets/css/fontawesome-free.min.css') }}" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{{ asset('/assets/css/main.css') }}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+        <link href="/assets/css/panel/paper-dashboard.css" rel="stylesheet" />
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+        <link href="/assets/css/panel/demo.css" rel="stylesheet" />
+        <link href="/assets/css/panel/panel.css" rel="stylesheet" />
+        {% block stylesheets %}{% endblock %}
+
+    </head>
+    <body>
+    <div class="wrapper ">
+    <div class="sidebar" data-color="black" data-active-color="{{ app.user.activeColor }}" >
+    <div class="back-img-nav"></div>
+      <div class="logo">
+        <a href="{{ path('panel') }}" class="simple-text">
+            <div class="logo-img">
+                <i class="fas fa-share-alt"></i>
+            </div>
+            Ssharet.com
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="{% if app.request.get('_route') == 'panel' %}active{% endif %}">
+            <a href="{{ path('panel') }}">
+              <i class="material-icons">account_balance</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="{% if app.request.get('_route') == 'panel_room' or app.request.get('_route') == 'panel_room_create' or app.request.get('_route') == 'room_url' %}active{% endif %}">
+            <a href="{{ path('panel_room') }}">
+              <i class="far fa-list-alt"></i>
+              <p>Rooms</p>
+            </a>
+          </li>
+          {# <li>
+            <a href="./map.html">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>Maps</p>
+            </a>
+          </li>
+          <li>
+            <a href="./notifications.html">
+              <i class="nc-icon nc-bell-55"></i>
+              <p>Notifications</p>
+            </a>
+          </li> #}
+          <li class="{% if app.request.get('_route') == 'panel_profile' %}active{% endif %}">
+            <a href="{{ path('panel_profile') }}">
+              <i class="far fa-user"></i>
+              <p>User Profile</p>
+            </a>
+          </li>
+          <li class="{% if app.request.get('_route') == 'panel_files' %}active{% endif %}">
+            <a href="{{ path('panel_files') }}">
+              <i class="far fa-file-alt"></i>
+              <p>Files</p>
+            </a>
+          </li>
+          {# <li>
+            <a href="./typography.html">
+              <i class="nc-icon nc-caps-small"></i>
+              <p>Typography</p>
+            </a>
+          </li> #}
+          <li class="active-pro {% if app.request.get('_route') == 'panel_upgrade' %}active{% endif %}">
+            <a href="{{ path('panel_upgrade') }}">
+              <i class="fas fa-rocket"></i>
+              <p>Upgrade Your Plan</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle dis-room-bl">
+              <button type="button" class="navbar-toggler dis-room-bl">
+                <span class="navbar-toggler-bar bar1 sidebar-toggler"></span>
+                <span class="navbar-toggler-bar bar2 sidebar-toggler"></span>
+                <span class="navbar-toggler-bar bar3 sidebar-toggler"></span>
+              </button>
+            </div>
+            <span class="navbar-brand" style="color: #66615B;">{% block title_bar %}Ssharet - create and share your thoughts{% endblock %}</span>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input id="search-for-rooms" type="text" value="" style="height: 38px;" class="form-control" placeholder="Search for rooms...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-search"></i>
+                  </div>
+                </div>
+                <div class="search-rooms-result">
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item btn-rotate dropdown a-centered">
+                <a class="nav-link dropdown-toggle text-center" title="Notification" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% set ismess = false %}
+                {% set ismessemty = false %}
+                {% for member in app.user.roomMembers %}
+                  {% if member.status == "send" %}
+                    {% set ismess = true %}
+                  {% endif %}
+                  {% if member.status == "send" or member.status == "refuse" %}
+                    {% set ismessemty = true %}
+                  {% endif %}
+                {% endfor %}
+                  <i style="font-size: 19px;" class="far fa-bell{% if ismess %} bell-anim{% endif %}"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Notifications</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <ul class="messbar-ul">
+                    {% for member in app.user.roomMembers if member.status == "send" or member.status == "refuse" %}
+                      <li class="dropdown-messbar-item position-relative{{ member.status == "refuse" ? " kreslik"}}">
+                      {% if member.status != "refuse" %}
+                        Room {{ member.room.name }} is waiting to approve
+                      {% else %}
+                        Room {{ member.room.name }} was refused
+                      {% endif %}
+                      <div class="mess-action">
+                        <a href="{{ path('room_member_approve', {'roomMember': member.id}) }}" title="approve" class="mr-1"><i class="fas fa-check check-true"></i></a>
+                        {% if member.status != "refuse" %}
+                          <a href="{{ path('room_member_deny', {'roomMember': member.id}) }}" title="refuse"><i class="fas fa-times check-false"></i></a>
+                        {% endif %}
+                      </div>
+                      </li>
+                    {% endfor %}
+                    {% if not ismessemty %}
+                      <li class="dropdown-messbar-item">
+                      </li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-magnify" href="{{ path('panel_room') }}" title="Rooms">
+                  <i style="font-size: 18px;" class="far fa-bookmark"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Rooms</span>
+                  </p>
+                </a>
+              </li>
+              {# <li class="nav-item">
+                <a class="nav-link btn-rotate" href="{{ path('panel_profile') }}"  title="Account">
+                  <i style="font-size: 18px;" class="far fa-user"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li> #}
+              <li class="nav-item">
+                <ul class="navbar-nav align-items-center user-action"><!-- d-none d-lg-flex-->
+                  <li class="nav-item dropdown a-centered">
+                    <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="media align-items-center">
+                        <span class="avatar avatar-sm rounded-circle">
+                          <img alt="Image placeholder" src="{% if app.user.pictureFilename is not empty %}{{ asset('uploads/profile-pictures/' ~ app.user.pictureFilename) }}{% else %}{{ defaultPicture }}{% endif %}">
+                        </span>
+                        <div class="media-body ml-2"><!-- d-none d-lg-block -->
+                          <span class="mb-0 text-sm  font-weight-bold">
+                            {{ fullname(app.user) }}
+                          </span>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+                      <div class=" dropdown-header noti-title d-none d-lg-block">
+                        <h6 class="text-overflow m-0">Welcome!</h6>
+                      </div>
+                      <a href="{{ path('panel_profile') }}" class="dropdown-item">
+                        <i class="ni ni-single-02"></i>
+                        <span>My profile</span>
+                      </a>
+                      <a href="{{ path('panel_room') }}" class="dropdown-item">
+                        <i class="ni ni-settings-gear-65"></i>
+                        <span>Rooms</span>
+                      </a>
+                      <a href="{{ path('panel_upgrade') }}" class="dropdown-item">
+                        <i class="ni ni-support-16"></i>
+                        <span>My Plan</span>
+                      </a>
+                      <a href="{{ path('panel_profile') }}#passChange" class="dropdown-item">
+                        <i class="ni ni-calendar-grid-58"></i>
+                        <span>Change Password</span>
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="{{ path('fos_user_security_logout') }}" class="dropdown-item">
+                        <i class="ni ni-user-run"></i>
+                        <span>Logout</span>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="content">
+        {% block body %}{% endblock %}
+      </div>
+    <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+          <div class="row">
+            <nav class="footer-nav">
+              <ul>
+                <li>
+                  <a href="{{ path("homepage") }}" target="_blank">Ssharet.com</a>
+                </li>
+                <li>
+                  <a href="http://ssharet.com/license" target="_blank">Licenses</a>
+                </li>
+              </ul>
+            </nav>
+            <div class="credits ml-auto">
+              <span class="copyright">
+                ©
+                <script>
+                  document.write(new Date().getFullYear())
+                </script>, Ssharet.com
+                <!-- made by Creative Tim https://www.creative-tim.com/product/paper-dashboard-2 -->
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+        <script type="text/javascript" src="{{ asset('/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/assets/vendor/popper.js/dist/umd/popper.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        
+        <script>
+        var baseUrl = "{{ url("panel") }}";
+        var ssharetUrl = "{{ url("homepage") }}";
+        </script>
+
+
+        <script src="/assets/js/panel/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!--  Google Maps Plugin    -->
+        <!-- Chart JS -->
+        <script src="/assets/js/panel/plugins/chartjs.min.js"></script>
+        <!--  Notifications Plugin    -->
+        <script src="/assets/js/panel/plugins/bootstrap-notify.js"></script>
+        <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/assets/js/panel/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+        <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+        <script src="/assets/js/panel/demo.js"></script>
+        <script src="/assets/js/panel/searchForRooms.js"></script>
+
+        {% block javascripts %}{% endblock %}
+        <script>
+          window.addEventListener('DOMContentLoaded', (event) => {
+              {% for label, messages in app.flashes %}
+                  {% for message in messages %}
+                      appShowNotification('{{ label }}','{{ message|raw }}');
+                  {% endfor %}
+              {% endfor %}
+          });
+
+        function appShowNotification(label, notif) {
+            color = label;
+
+            $.notify({
+              icon: "far fa-bell",
+              message: notif
+
+            }, {
+              type: color,
+              timer: 8000,
+              placement: {
+                from: 'bottom',
+                align: 'right'
+              }
+            });
+          }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,155 @@
+<div class="row create-row">
+        <div class="col-md-10 col-lg-8 mx-auto">
+          <div class="wizard-container">
+		                <div class="card wizard-card" data-color="green" id="wizardProfile">
+		                    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'autocomplete' : 'off'}}) }}
+		                    	<div class="wizard-header">
+		                        	<h3 class="wizard-title">
+		                        	   Create a Room
+		                        	</h3>
+									            <h5>Share files and texts with others in rooms.</h5>
+		                    	</div>
+								<div class="wizard-navigation">
+									<ul class="nav nav-pills">
+			                            <li class="active" style="width: 33.3333%;"><a href="#about" data-toggle="tab" aria-expanded="true">room</a></li>
+			                            <li style="width: 33.3333%;"><a href="#account" data-toggle="tab">Options</a></li>
+			                            <li style="width: 33.3333%;"><a href="#address" data-toggle="tab">Url</a></li>
+			                        </ul>
+								<div class="moving-tab" style="width: 250px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1) 0s;">About</div></div>
+
+		                        <div class="tab-content">
+		                            <div class="tab-pane active" id="about">
+		                              <div class="row" id="about-page">
+		                                	<h4 class="info-text"> Let's start with basic information</h4>
+		                                	<div class="col-sm-4 offset-sm-1">
+		                                    	<div class="picture-container">
+		                                        	<div class="picture">
+                                        				<img src="/assets/img/cr/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="">
+		                                            	<input type="file" id="wizard-picture">
+		                                        	</div>
+		                                        	<h6 class="small-text">Room photo</h6>
+		                                    	</div>
+		                                	</div>
+		                                	<div class="col-sm-6">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="material-icons">home</i>
+													</span>
+													<div class="form-group label-floating {% if not form.name.vars.value|length %}is-empty{% endif %}">
+			                      <label class="control-label">Name</label>
+			                      {{ form_widget(form.name) }}
+                            {{ form_errors(form.name) }}
+			                      <span class="material-input"></span></div>
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="material-icons">record_voice_over</i>
+													</span>
+													<div class="form-group label-floating {% if not form.shortDescription.vars.value|length %}is-empty{% endif %}">
+													  <label class="control-label">Short description</label>
+                            {{ form_widget(form.shortDescription) }}
+                            {{ form_errors(form.shortDescription) }}
+													<span class="material-input"></span></div>
+												</div>
+		                                	</div>
+		                                	<div class="col-sm-10 offset-sm-1">
+												<div class="input-group">
+													<span class="input-group-addon vpn-key-out">
+														<i class="material-icons vpn-key">vpn_key</i>
+													</span>
+													<div class="form-group label-floating {% if not form.password.vars.value|length %}is-empty{% endif %}">
+			                                            <label class="control-label">Password</label>
+                                                  {{ form_widget(form.password) }}
+			                                        <span class="material-input"></span>
+                                              {% if not form.password.vars.errors|length %}
+                                                <div class="small-text">The password is not a requirement but it increases your security.</div>
+                                              {% endif %}
+                                              </div>
+												</div>
+		                                	</div>
+		                            	</div>
+		                            </div>
+		                            <div class="tab-pane" id="account">
+		                                <h4 class="info-text"> What do You want to include? (checkboxes) </h4>
+		                                <div class="row">
+		                                    <div class="col-10 offset-1 row">
+		                                        <div class="col">
+		                                            <div class="choice active" style="cursor: default;">
+		                                                <div class="icon">
+		                                                    <i class="fas fa-font"></i>
+		                                                </div>
+		                                                <h6>Text</h6>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col">
+		                                            <div class="choice" data-toggle="wizard-checkbox">
+		                                                {{ form_widget(form.includeImages) }}
+		                                                <div class="icon">
+		                                                    <i class="fas fa-images"></i>
+		                                                </div>
+		                                                <h6>Images</h6>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col">
+		                                            <div class="choice" data-toggle="wizard-checkbox">
+		                                                {{ form_widget(form.includeFiles) }}
+		                                                <div class="icon">
+		                                                    <i class="fas fa-file-word"></i>
+		                                                </div>
+		                                                <h6>Files</h6>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+                                    <h4 class="info-text small-text"> Later You can change it easily. </h4>
+		                            </div>
+		                            <div class="tab-pane" id="address">
+		                                <div class="row">
+		                                    <div class="col-sm-12">
+		                                        <h4 class="info-text"> Which URL suits you best? </h4>
+		                                    </div>
+                                        <div class="col-sm-8 mx-auto">
+		                                        <div class="form-group label-floating urlsy">
+                                                <span class="url-prefix">http://ssharet.com/</span>
+                                                {{ form_widget(form.url) }}
+                                                <button type="button" class="btn btn-success url-copy m-0">
+                                                <i class="fas fa-copy"></i>
+                                                </button>
+                                            </div>
+                                            <div>{{ form_errors(form.url) }}</div>
+										</div>
+										<div class="col-sm-10 mx-auto my-3">
+											<div class="col-sm-6">
+													<h4 class="info-text"> Do you want Guest to access your room? </h4>
+													<label class="switch">
+												{{ form_widget(form.guestAccess) }}
+												<span class="slider round"></span>
+												</label>
+												</div>
+											<div class="col-sm-6">
+													<h4 class="info-text"> Do you want Guest to edit your room? </h4>
+													<label class="switch">
+												{{ form_widget(form.guestEdit) }}
+												<span class="slider round"></span>
+												</label>
+												</div>
+										</div>
+		                            </div>
+		                        </div>
+		                        <div class="wizard-footer">
+		                            <div class="pull-right">
+		                                <input type="button" class="btn btn-next btn-fill btn-success" value="Next" id="nextBtn">
+		                                {{ form_widget(form.finish) }}
+		                            </div>
+
+		                            <div class="pull-left">
+		                                <input type="button" class="btn btn-previous btn-fill btn-default disabled" value="Previous">
+		                            </div>
+		                            <div class="clearfix"></div>
+		                        </div>
+		                    {{ form_end(form) }}
+		                </div>
+		            </div>
+        </div>
+      </div>
+	  </div>

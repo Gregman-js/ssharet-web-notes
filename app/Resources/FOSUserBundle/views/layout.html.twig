@@ -1,0 +1,49 @@
+{% extends '@App/base.html.twig' %}
+{% block stylesheets %}
+<link href="{{ asset('/assets/css/login.css') }}" rel="stylesheet">
+<link href="{{ asset('/assets/css/material-bootstrap-wizard.css') }}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('/assets/js/jquery.easing.min.js') }}"></script>
+<script src="/assets/js/jquery.bootstrap.js"></script>
+<script src="/assets/js/material-bootstrap-wizard.js"></script>
+<script src="/assets/js/jquery.validate.min.js"></script>
+{% endblock %}
+{% block body %}
+<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light"><!--navbar-shrink-->
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger home-a" tabindex="-1" href="{{ url('homepage') }}">Ssharet.com</a>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="big-bg-txt text-uppercase">Ssharet</div>
+  <section class="mx-auto text-center" style="position: relative; z-index: 2000;">
+                <div class="white-cont">
+                    {% if app.request.hasPreviousSession %}
+                        {% for type, messages in app.session.flashBag.all %}
+                            {% for message in messages %}
+                                <div class="{{ type }}">
+                                    {{ message|trans({}, 'FOSUserBundle') }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% block fos_user_content %}
+                    {% endblock fos_user_content %}
+                </div>
+            </section>
+
+<!-- Footer -->
+<footer class="small text-center text-white-50 py-2 footer-abso">
+  <div class="container">
+    Copyright &copy; <a href="http://ssharet.com/" class="lnk-to-site">Ssharet.com</a> 2019
+  </div>
+</footer>
+{% endblock %}

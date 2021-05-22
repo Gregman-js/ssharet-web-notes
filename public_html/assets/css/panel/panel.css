@@ -1,0 +1,467 @@
+body {
+    padding: 0 !important;
+}
+
+.navbar {
+    transition: padding-right 0s;
+}
+
+.nav li {
+    letter-spacing: 0px;
+}
+
+.wrapper .sidebar .logo {
+    padding: 7px 20px 6px 20px;
+    background-color: #f4f3ef;
+    border-bottom: 1px solid rgba(102, 97, 91, .3);
+}
+.wrapper .navbar-wrapper .logo
+{
+    padding: 7px 20px 6px 0px;
+    background-color: #f4f3ef;
+}
+
+.wrapper .sidebar .logo .simple-text, .wrapper .navbar-wrapper .logo .simple-text {
+    padding: 4px 0;
+    display: block;
+    text-align: left;
+    line-height: 40px;
+    color: rgba(50, 50, 50, 1);
+    font-size: 26px;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    /* font-family: Muli-Regular, sans-serif; */
+    font-family: 'Varela Round';
+    text-decoration: none;
+}
+
+.wrapper .sidebar .logo .simple-text .logo-img, .wrapper .navbar-wrapper .logo .simple-text .logo-img {
+    width: 40px;
+    display: inline-block;
+    height: 40px;
+    margin-left: 0;
+    margin-right: 10px;
+    /* background: #fff; */
+    border-radius: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.wrapper .sidebar .logo .simple-text .logo-img i, .wrapper .navbar-wrapper .logo .simple-text .logo-img i {
+    font-size: 25px;
+    line-height: 40px;
+}
+
+@media (max-width:991px) {
+    .wrapper .sidebar .logo, .wrapper .navbar-wrapper .logo {
+        position: relative;
+        z-index: 4;
+        padding-top: 11px;
+        padding-bottom: 11px;
+    }
+}
+
+/* Logout */
+
+img {
+    border-style: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.rounded-circle {
+    border-radius: 50%!important;
+}
+
+@media print {
+    *, :after, :before {
+        text-shadow: none!important;
+        box-shadow: none!important;
+    }
+    img {
+        page-break-inside: avoid;
+    }
+}
+
+.avatar {
+    color: #fff;
+    background-color: #adb5bd;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+}
+
+.avatar img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.avatar-sm {
+    width: 36px;
+    height: 36px;
+    font-size: .875rem;
+    overflow: hidden;
+}
+
+.card-title {
+    display: inline-block;
+}
+
+.create-room-btn {
+    float: right;
+}
+
+.content .create-row .wizard-container {
+    padding-top: 0;
+}
+
+.text-right .btn {
+    padding: 5px;
+    margin: 0;
+}
+
+.text-right .btn .material-icons {
+    position: relative;
+    display: inline-block;
+    top: 0;
+    margin-top: -1em;
+    margin-bottom: -1em;
+    font-size: 1.1rem;
+    vertical-align: middle;
+}
+
+.text-right .btn-lnk-success:hover {
+    background-color: #44c47d;
+    color: black;
+}
+
+.text-right .btn-lnk-warning:hover {
+    background-color: #fccf71;
+    color: black;
+}
+.text-right .btn-lnk-info:hover {
+    background-color: #2ba9cd;
+    color: black;
+}
+
+.text-right .btn-link {
+    color: inherit;
+}
+
+.kreslik {
+    color: #888;
+    text-decoration: line-through;
+}
+
+.text-right a.col-dis {
+    color: #888;
+}
+
+.text-right .btn-lnk-danger:hover {
+    background-color: #ff5050;
+    color: black;
+}
+
+.check-false {
+    color: #ff5050;
+}
+
+.check-true {
+    color: #84d80d;
+}
+
+@media only screen and (min-width: 992px) {
+    .btn-fill {
+        min-width: 140px;
+    }
+}
+
+.change-border {
+    border: 1px solid #dadada;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    box-sizing: content-box;
+    transition: all .1s;
+}
+
+.change-border:hover {
+    border: 1px solid #aaa;
+}
+
+.change-border i {
+    padding-top: .2em;
+}
+
+.back-img-nav {
+    background-image: url(https://demos.creative-tim.com/light-bootstrap-dashboard/assets/img/sidebar-2.jpg);
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center center;
+}
+
+.navbar .user-action .nav-link.pr-0 {
+    padding: 0 0.7rem;
+}
+
+#navigation .navbar-nav {
+    align-items: center;
+    justify-content: center;
+}
+
+#navigation form {
+    padding-top: 2px;
+}
+
+.change-pass-panel div div ul, .change-pass-panel ul {
+    list-style-type: none;
+    color: red;
+    padding: 0;
+    text-align: center;
+    font-size: 13px;
+}
+
+.profile-update-form .row .form-group ul {
+    list-style-type: none;
+    color: red;
+    font-size: 13px;
+}
+
+select.form-control {
+    padding: 0 0 0 5px !important;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.image-upload label img {
+    cursor: pointer;
+}
+
+.image-upload ul {
+    color: red;
+    list-style: none;
+    padding: 0;
+    font-size: 12px;
+}
+
+.premium-table {
+    width: 90%;
+}
+
+.rooms-table-body tr:hover:not(.tr-kreslik), .other-rooms tr:hover {
+    background-color: #eee;
+}
+
+.doors:not(.disabled):hover .fa-door-closed, .fa-door-open {
+    display: none;
+}
+
+.doors:not(.disabled):hover .fa-door-open {
+    display: inline-block;
+}
+
+.info-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.info-link:hover {
+    color: white;
+}
+
+.others-room-prop {
+    cursor: default;
+}
+
+.messbar-ul {
+    padding: 0;
+}
+.dropdown-messbar-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.dropdown-messbar-item:focus, .dropdown-messbar-item:hover {
+    color: #16181b;
+    background-color: #f8f9fa;
+}
+
+.dropdown-messbar-item:disabled {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: transparent;
+}
+
+.dropdown-menu .dropdown-messbar-item {
+    color: #66615b;
+    font-size: 14px;
+    padding: 10px 65px 10px 15px;
+    clear: both;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+}
+
+.dropdown-menu .dropdown-messbar-item:focus {
+    outline: 0!important;
+}
+
+.dropdown-menu .dropdown-messbar-item:first-child {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.dropdown-menu .dropdown-messbar-item:last-child {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.mess-action
+{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.mess-action a i
+{
+    font-size: 20px;
+}
+
+li:not(.show) .bell-anim
+{
+    animation: bellanimkeyframe 1s infinite;
+    color: #d69d00;
+}
+
+@keyframes bellanimkeyframe {
+    0%   {transform: rotate(0deg);}
+    20%  {transform: rotate(-40deg);}
+    40%  {transform: rotate(20deg);}
+    60% {transform: rotate(-20deg);}
+    80% {transform: rotate(10deg);}
+    100% {transform: rotate(0deg);}
+  }
+
+td .material-icons.vpn-key
+{
+    vertical-align: middle; color: rgb(0, 230, 0);
+}
+td.kreslik .material-icons.vpn-key
+{
+    vertical-align: middle; color: inherit;
+}
+
+.rooms-tr td.room-actions .btn-link
+{
+    width: 26px;
+}
+.search-rooms-result
+{
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    background-color: white;/*#f4f3ef*/
+    border-radius: 0 0 12px 12px;
+}
+.search-rooms-result .card
+{
+    margin-bottom: 5px;
+}
+.search-rooms-result .card:last-child
+{
+    margin-bottom: 0px;
+}
+.your-note
+{
+    width: 50px;
+    height: 50px;
+    background: #3f3;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border-radius: 25px;
+}
+.your-note-in
+{
+    position: absolute;
+    bottom: 10%;
+    left: 47%;
+    transform: translateX(-50%);
+    color: white;
+    font-weight: bold;
+    font-size: 11px;
+}
+.file-room-name
+{
+    /* background-color: #fff; */
+    width: 100%;
+    border-radius: 12px;
+}
+.file-col .file-remover
+{
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    font-size: 17px;
+    z-index: 20;
+    cursor: pointer;
+}
+.file-col .file-download
+{
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    font-size: 17px;
+    z-index: 20;
+    cursor: pointer;
+    color: rgb(0, 132, 255);
+}
+.file-col
+{
+    max-width: 300px;
+}
+
+.file-href-lnk
+{
+    text-decoration: none;
+    color: black;
+    transition: all .1s;
+}
+.file-href-lnk:hover
+{
+    text-decoration: none;
+}
+.by-autor
+{
+    font-size: 14px;
+    color: #aaa;
+}
+.go-to-url
+{
+    font-size: 16px;
+    color: #777;
+}

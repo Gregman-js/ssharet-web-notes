@@ -1,0 +1,172 @@
+@media only screen and (min-width: 992px) {
+    html:not(.nav-open) .main-panel
+    {
+        width: 100%;
+    }
+    .sidebar
+    {
+        /* left: -100%; */
+        z-index: 2;
+    }
+    .sidebar-toggler
+    {
+        display: block;
+        position: relative;
+        width: 22px;
+        height: 1px;
+        border-radius: 1px;
+        background: #66615B;
+    }
+    .dis-room-bl
+    {
+        display: block !important;
+    }
+    .navbar .navbar-toggler-bar+.navbar-toggler-bar {
+        margin-top: 7px;
+    }
+    .others-card:hover
+    {
+    -webkit-animation-name: othercardshop; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: othercardshop;
+    animation-duration: 1s;
+    }
+  }
+
+.jodit_container:not(.jodit_inline):not(.jodit_fullsize) > .jodit_toolbar
+{
+    border-radius: 12px 12px 0 0;
+}
+.jodit_container:not(.jodit_inline):not(.jodit_fullsize) .jodit_statusbar
+{
+    border-radius: 0 0 12px 12px;
+}
+.jodit_container:not(.jodit_inline):not(.jodit_fullsize) {
+    background: none !important;
+}
+.others-card
+{
+    cursor: pointer;
+    position: relative;
+    transition: all .4s;
+    overflow: hidden;
+}
+.others-card h4
+{
+    white-space:nowrap;
+    width: 90%;
+    overflow: hidden;
+    background: linear-gradient(
+    to right, 
+    rgba(37, 36, 34, 1) 0%,
+    rgba(37, 36, 34, 1) 85%,
+    rgba(37, 36, 34, 0) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.others-card .others-note-autor
+{
+    white-space:nowrap;
+    width: 90%;
+    overflow: hidden;
+    background: linear-gradient(
+    to right, 
+    rgba(37, 36, 34, 1) 0%,
+    rgba(37, 36, 34, 1) 85%,
+    rgba(37, 36, 34, 0) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media only screen and (max-width: 991px) {
+    .others-card:hover
+    {
+    -webkit-animation-name: othercardshopvert; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: othercardshopvert;
+    animation-duration: 1s;
+    }
+  }
+
+@keyframes othercardshop {
+    0%   {right: 0px;}
+    25%  {right: 10px;}
+    50%  {right: 0px;}
+    75%  {right: 25px;}
+    100% {right: 0px;}
+}
+@keyframes othercardshopvert {
+    0%   {bottom: 0px;}
+    25%  {bottom: 10px;}
+    50%  {bottom: 0px;}
+    75%  {bottom: 25px;}
+    100% {bottom: 0px;}
+}
+
+.new-note-btn
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+}
+#moving-card
+{
+    display: none;
+    position: absolute;
+    overflow: hidden;
+    z-index: 10;
+}
+.col-note-hide
+{
+    display: none;
+}
+.other-row
+{
+    margin-bottom: 20px;
+}
+.note-remover
+{
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    font-size: 17px;
+    z-index: 20;
+    cursor: pointer;
+}
+
+.room-edit-name:not(:focus)
+{
+    color: rgb(63, 60, 57);
+    border-bottom: 2px solid rgba(160, 160, 255, .3);
+}
+.main-note-title-bar:not(:focus)
+{
+    border-bottom: 2px solid rgba(160, 160, 255, .3);
+}
+.main-note-title-bar
+{
+    border-bottom: 2px solid rgba(160, 160, 255, 0);
+}
+
+.search-user-btn
+{
+    position: absolute;
+    top: 50%;
+    right: 1%;
+    transform: translateY(-50%);
+}
+
+.card-files-title input{
+    display: none;
+}
+.add-file-label
+{
+    position: relative;
+    top: -3px;
+}

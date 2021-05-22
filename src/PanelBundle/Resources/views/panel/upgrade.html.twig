@@ -1,0 +1,66 @@
+{% extends '@Panel/base.html.twig' %}
+{% block title_bar %}Upgrade Your Plan{% endblock %}
+{% block stylesheets %}
+<link href="/assets/css/panel/pricing.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div id="generic_price_table" class="row text-center">
+{% for plan in plans %}
+                <div class="col-xl-{{ 12 // plans|length }} col-sm-6">
+                    <div class="generic_content clearfix">
+                        <div class="generic_head_price clearfix {{ app.user.plan == plan ? "isityours" }}">
+                            <div class="generic_head_content clearfix">
+                                <div class="head_bg"></div>
+                                <div class="head">
+                                    <span class="text-uppercase">{{ plan.name }}</span>
+                                </div>
+                            </div>
+                            <div class="generic_price_tag clearfix">    
+                                <span class="price">
+                                    <span class="sign">$</span>
+                                    <span class="currency">{{ plan.price|round(0, 'floor') }}</span>
+                                    {% set cent = (plan.price - plan.price|round(0, 'floor')) * 100 %}
+                                    <span class="cent">{{ cent == 0 ? "" : cent }}</span>
+                                    {% if plan.isMonthly %}
+                                    <span class="month">/MON</span>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>                            
+                        <div class="generic_feature_list">
+                            <ul>
+                                <li><span>{{ plan.maxRooms }}</span> Rooms</li>
+                                <li><span>{{ plan.maxRoomsNotes }}</span> Notes per room</li>
+                                <li {{ not plan.isSharing ? 'class="kreslik"'}}><span>
+                                {% if plan.isSharing %}
+                                    <i class="fas fa-check check-true"></i>
+                                {% else %}
+                                    <i class="fas fa-times check-false"></i>
+                                {% endif %}
+                                </span> Share your rooms</li>
+
+                                <li {{ not plan.isPublic ? 'class="kreslik"'}}><span>
+                                {% if plan.isPublic %}
+                                    <i class="fas fa-check check-true"></i>
+                                {% else %}
+                                    <i class="fas fa-times check-false"></i>
+                                {% endif %}
+                                </span> Publish your rooms</li>
+
+                                <li><span>{{ plan.maxFilePerRoom }}</span> Files per room</li>
+                                <li><span>{{ plan.maxFileSize }}MB</span> Max file size</li>
+                            </ul>
+                        </div>
+                        <div class="generic_price_btn clearfix" {{plan.name == 'free' ? 'style="visibility: hidden;"'}}>
+                            {% if app.user.plan == plan %}
+                                <a class="unsub" href="{{ path('panel_unsubscribe') }}">Unsubscribe</a>
+                            {% else %}
+                                <a class="disabled" onclick="return false" href="{{ path('panel_getPlan', {'plan': plan.id}) }}">Sign up</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+{% endfor %}
+</div>
+{% endblock %}

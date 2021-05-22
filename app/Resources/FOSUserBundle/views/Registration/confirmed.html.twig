@@ -1,0 +1,18 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <p class="check-email-note pb-2">
+    {{ 'registration.confirmed'|trans({'%username%': user.username}) }}
+    </p>
+    {% if targetUrl %}
+    <div class="container-login100-form-btn pb-4">
+        <a href="{{ targetUrl }}" class="login100-form-btn" style="position: relative;">{{ 'registration.back'|trans }}</a>
+    </div>
+    {% else %}
+    <div class="container-login100-form-btn pb-4">
+        <a href="{{ path('panel') }}" class="login100-form-btn" style="position: relative;">Your Panel</a>
+    </div>
+    {% endif %}
+{% endblock fos_user_content %}

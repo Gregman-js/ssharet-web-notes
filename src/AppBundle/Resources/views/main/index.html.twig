@@ -1,0 +1,233 @@
+{% extends '@App/base.html.twig' %}
+{% form_theme form '@App/form/form_errors.html.twig' %}
+{% block stylesheets %}
+<link href="{{ asset('/assets/css/create-room.css') }}" rel="stylesheet">
+<link href="{{ asset('/assets/css/material-bootstrap-wizard.css') }}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('/assets/js/jquery.easing.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/assets/js/grayscale.min.js') }}"></script>
+<script src="/assets/js/jquery.bootstrap.js"></script>
+<script src="/assets/js/material-bootstrap-wizard.js"></script>
+<script src="/assets/js/jquery.validate.min.js"></script>
+<script src="/assets/js/mycreateroom.js"></script>
+{% endblock %}
+{% block body %}
+<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Ssharet.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" id="cr-room-btn" href="#wizardProfile">Create room</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#projects">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#signup">About</a>
+          </li>
+          {% if app.user %}
+            <li class="nav-item bar-item bar-log">
+              <a class="nav-link js-scroll-trigger" href="{{ path('panel') }}">Panel</a>
+            </li>
+            <li class="nav-item bar-item bar-log">
+              <a class="nav-link js-scroll-trigger" href="{{ path('fos_user_security_logout') }}">Log out</a>
+            </li>
+          {% else %}
+            <li class="nav-item bar-item bar-log">
+              <a class="nav-link js-scroll-trigger" href="{{ path('fos_user_security_login') }}">Sing in</a>
+            </li>
+            <li class="nav-item bar-item bar-reg">
+              <a class="nav-link js-scroll-trigger" href="{{ path('user_register') }}">Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    {% if not form.vars.valid %}
+    <script>
+    window.onload = () => $('#cr-room-btn').click();
+    </script>
+    {% endif %}
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead">
+    <div class="container d-flex h-100 align-items-center">
+      <div class="mx-auto text-center">
+        <h1 class="mx-auto my-0 text-uppercase">Ssharet</h1>
+        <h2 class="text-white-50 mx-auto mt-2 mb-5">Share files and texts created in rooms with your friends and others.</h2>
+        <a href="#wizardProfile" class="btn btn-primary js-scroll-trigger" style="position: relative;">Create room</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CREATE ROOM -->
+  <section class="about-section text-center">
+    <div class="container" id="createRoom">
+      {% include '@Panel/room_create.html.twig' %}
+    </div>
+  </section>
+
+  <section class="about-section text-center liner-whiter">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2 class="text-white mb-4">Save all your notes</h2>
+          <p class="text-white-50">SSHARET is a free tool created to help you manage your day. You can create your room right <a class="js-scroll-trigger" href="#wizardProfile">now</a>, simply write and share your notes
+            with everyone. Take advantage of other benefits that will help you in your daily life.</p>
+        </div>
+      </div>
+      <img src="/assets/img/ipadv2.png" class="img-fluid" alt="">
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section bg-light">
+    <div class="container">
+
+      <!-- Featured Project Row -->
+      <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+        <div class="col-xl-8 col-lg-7">
+          <img class="img-fluid mb-3 mb-lg-0" src="/assets/img/inRoom.png" alt="">
+        </div>
+        <div class="col-xl-4 col-lg-5">
+          <div class="featured-text text-center text-lg-left">
+            <h4>Share files and images</h4>
+            <p class="text-black-50 mb-0">With Ssharet you can easly save, share and manage your files. Preview and download them everywhere.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project One Row -->
+      <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+        <div class="col-lg-6">
+          <img class="img-fluid" src="/assets/img/rooms.png" alt="">
+        </div>
+        <div class="col-lg-6">
+          <div class="bg-black text-center h-100 project">
+            <div class="d-flex h-100">
+              <div class="project-text w-100 my-auto text-center text-lg-left">
+                <h4 class="text-white">Discover</h4>
+                <p class="mb-0 text-white-50">You can find all rooms in one place. The second table is a place for rooms that you have access to or you enjoy them.</p>
+                <hr class="d-none d-lg-block mb-0 ml-0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Two Row -->
+      <div class="row justify-content-center no-gutters">
+        <div class="col-lg-6">
+          <img class="img-fluid" src="/assets/img/profile.png" alt="">
+        </div>
+        <div class="col-lg-6 order-lg-first">
+          <div class="bg-black text-center h-100 project">
+            <div class="d-flex h-100">
+              <div class="project-text w-100 my-auto text-center text-lg-right">
+                <h4 class="text-white">Edit Profile</h4>
+                <p class="mb-0 text-white-50">Show off your creativity and describe yourself as best as possible so that others can notice you.</p>
+                <hr class="d-none d-lg-block mb-0 mr-0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Signup Section -->
+  {# <section id="signup" class="signup-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-lg-8 mx-auto text-center">
+
+          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+          <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
+
+          <form class="form-inline d-flex form-group is-empty">
+            <input type="email" class="flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" placeholder="Enter email address...">
+            <button type="submit" class="btn btn-primary mx-auto">Subscribe</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </section> #}
+
+  <!-- Contact Section -->
+  <section class="contact-section bg-black signup-section">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-sign-in-alt text-primary mb-2"></i>
+              <h4 class="text-uppercase m-0"><a href="{{ path("fos_user_security_login") }}">Sing in</a></h4>
+              <hr class="my-4">
+              <div class="small text-black-50">Feel the power</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-user-plus text-primary mb-2"></i>
+              <h4 class="text-uppercase m-0"><a href="{{ path("user_register") }}">Register</a></h4>
+              <hr class="my-4">
+              <div class="small text-black-50">
+                Open yourself to new experiences
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-plus-square text-primary mb-2"></i>
+              <h4 class="text-uppercase m-0"><a class="js-scroll-trigger" href="#wizardProfile">Create room</a></h4>
+              <hr class="my-4">
+              <div class="small text-black-50">Look into the future</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="social d-flex justify-content-center">
+        {# <a href="#" class="mx-2">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="mx-2">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="mx-2">
+          <i class="fab fa-github"></i>
+        </a> #}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black small text-center text-white-50">
+    <div class="container">
+      Copyright &copy; <a href="http://ssharet.com/" class="lnk-to-site">Ssharet.com</a> 2019
+    </div>
+  </footer>
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends '@Panel/base.html.twig' %}
+{% set admin = room.user == app.user ? true : false %}
+{% block title_bar %}<a href="{{ path("panel_room") }}" style="text-decoration: none; vertical-align: top;" title="Back to your rooms">Rooms</a> - <span{% if admin %} class="room-edit-name" room-name="{{ room.name }}" contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" {% endif %}>{{ room.name }}</span>{% endblock %}
+{% block stylesheets %}
+<link href="/assets/css/panel/room.css" rel="stylesheet" />
+<link href="/assets/vendor/jodit/build/jodit.min.css" rel="stylesheet" />
+{% endblock %}
+{% block javascripts %}
+<script>
+var roomUrl = "{{ room.url }}";
+var updateUrl = "{{ url('room_url', {"url": room.url}) }}";
+var roomDisabled = {{ wPer ? "false" : "true" }};
+</script>
+<script src="{{ asset('assets/vendor/jodit/build/jodit.min.js') }}"></script>
+<script src="{{ asset('assets/js/panel/room.js') }}"></script>
+{% endblock %}
+{% block body %}
+<div class="row">
+  <div class="col-lg-8">
+    <div class="row">
+      <div class="col-12">
+        <div id="note-id" class="d-none note-id-class">{{ room.notes.first ? room.notes.first.id : '1' }}</div>
+        <h4 class="card-title mt-0 d-inline-block ml-1" id="main-note-title" {% if admin %} class="main-note-title-bar" contenteditable="true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"{% endif %}>{{ room.notes.first ? room.notes.first.title : 'Title' }}</h4>
+        <span class="card-category" id="main-note-autor">{{ room.notes.first ? fullname(room.notes.first.user): fullname(app.user) }}</span>
+        <div class="card-category" id="main-note-edited" style="float: right;">{{ room.notes.first ? room.notes.first.edited|date("H:i:s d-m-Y") : "now"|date("H:i:s d-m-Y") }}</div>
+        <div class="card" style="z-index: 11">
+          {# <div class="card-header">
+          </div> #}
+          <div class="card-body" id="editor">
+          {{ room.notes.first ? room.notes.first.content|purify }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-5 col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Room Members</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled team-members">
+              <li>
+                <div class="row">
+                  <div class="col-md-2 col-2">
+                    <div class="avatar">
+                      <img class="img-circle img-no-padding img-responsive" src="{% if room.user.pictureFilename is not empty %}{{ asset('uploads/profile-pictures/' ~ room.user.pictureFilename) }}{% else %}{{ defaultPicture }}{% endif %}" alt="Profile Picture">
+                    </div>
+                  </div>
+                  <div class="col-md-7 col-7">
+                    {{ fullname(room.user) }}
+                    <br>
+                    <span class="text-info">
+                      <small>Admin</small>
+                    </span>
+                  </div>
+                  <div class="col-md-3 col-3 text-right">
+                    <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
+                  </div>
+                </div>
+              </li>
+              {% for member in room.members if member.status == "approve" %}
+              <li>
+                <div class="row" user-member="{{ member.user.username }}">
+                  <div class="col-md-2 col-2">
+                    <div class="avatar">
+                      <img class="img-circle img-no-padding img-responsive" src="{% if member.user.pictureFilename is not empty %}{{ asset('uploads/profile-pictures/' ~ app.user.pictureFilename) }}{% else %}{{ defaultPicture }}{% endif %}" alt="Profile Picture">
+                    </div>
+                  </div>
+                  <div class="col-md-7 col-7">
+                    {{ fullname(member.user) }}
+                    <br>
+                    <span class="text-success">
+                      <small class="text-capitalize">{% if app.user == member.user %}You{% else %}{{ member.status }}{% endif %} - {% if admin %}<a title="Change permission" href="{{ path('change_member_permission', {'roomMember': member.id}) }}">{% endif %}{% if member.writeRight == true %}Write Access{% else %}Read Access{% endif %}{% if admin %}</a>{% endif %}</small>
+                    </span>
+                  </div>
+                  <div class="col-md-3 col-3 text-right">
+                    {% if admin %}<btn class="btn btn-sm btn-outline-danger btn-round btn-icon user-member-remove"><i class="fa fa-trash"></i></btn>{% endif %}
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+              {% if room.user == app.user %}
+                <li>
+                  <div class="form-group" style="margin: 0 -2px;">
+                    <div class="position-relative">
+                      <input type="text"  onkeypress="return addMember(event)" class="form-control" id="search-user-input" style="height: 36px" placeholder="Username">
+                      <div class="search-user-btn">
+                        <btn class="btn btn-sm btn-outline-info btn-round btn-icon m-0 search-user-search">
+                        <i class="fas fa-plus" style="line-height: 24px; font-size: 17px;"></i>
+                        </btn>
+                      </div>
+                    </div>
+                    <label class="add-user-label" style="color: rgb(0,230,0);"></label>
+                    <label>Add new user to room</label>
+                  </div>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xl-5 col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            {% if fileForm is defined and fileForm is not null %}
+              {{ form_start(fileForm, {'attr': {'id': 'file-form-id'}}) }}
+                <h4 class="card-title card-files-title">Files
+                  <label for="note_files_file">
+                    <btn class="btn btn-sm btn-outline-info btn-round btn-icon m-0 add-file-label">
+                      <i class="fas fa-plus" style="line-height: 24px; font-size: 17px;"></i>
+                    </btn>
+                  </label>
+                  {{ form_widget(fileForm.file) }}
+                  {{ form_errors(fileForm.file) }}
+                </h4>
+              {{ form_end(fileForm) }}
+            {% else %}
+            <h4 class="card-title card-files-title">Files</h4>
+            {% endif %}
+            <script>
+              document.getElementById("note_files_file").onchange = function() {
+                  document.getElementById("file-form-id").submit();
+              };
+            </script>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled team-members">
+              {% for file in room.files %}
+                <li>
+                  <div class="row">
+                    <div class="col-md-7 col-7">
+                      <a target="_blank" href="{{ path('file_serve', {fileName: file.fileName}) }}">{{ file.name }}</a>
+                      <br>
+                      <span class="text-success">
+                        <small class="text-capitalize">File</small>
+                      </span>
+                    </div>
+                    <div class="col-md-5 col-5 text-right">
+                      <btn f-url="{{ url('file_serve', {fileName: file.fileName}) }}" class="btn btn-sm btn-outline-primary btn-round btn-icon user-file-copy"><i class="fas fa-copy"></i></btn>
+                      <btn f-url="{{ url('file_download', {fileName: file.fileName}) }}" onclick="window.location = this.getAttribute('f-url')" class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fas fa-download"></i></btn>
+                      {% if (file.user == app.user and wPer) or room.user == app.user %}<btn f-id="{{ file.id }}" class="btn btn-sm btn-outline-danger btn-round btn-icon user-file-remove"><i class="fa fa-trash"></i></btn>{% endif %}
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+  <div class="col-lg-3 offset-lg-1">
+    <div class="position-relative">
+      <h4 class="card-title mt-0">Others note</h4>
+      {% if wPer %}<a href="" class="btn btn-success new-note-btn">New Note</a>{% endif %}
+    </div>
+    <div class="row other-row">
+      {% for note in room.notes %}
+      <div class="col-sm-6 col-lg-12{{ note == room.notes.first ? " col-note-hide" }}">
+        <div class="note-remover" note-id="{{ note.id }}">
+          <i class="fas fa-times check-false"></i>
+        </div>
+        <div class="card others-card{{ note == room.notes.first ? " card-hide" }}">
+          <div class="card-body">
+            <div class="others-note-id d-none">{{ note.id }}</div>
+            <div class="others-note-autor">{{ fullname(note.user) }}</div>
+            <h4 class="m-0">{{ note.title }}</h4>
+            <div class="others-note-edited" style="text-align: right;">{{ note.edited|date("H:i:s d-m-Y") }}</div>
+            <div class="d-none others-note-content">
+              {{ note.content|purify }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="card" id="moving-card">
+  <div class="card-body">
+    <div class="others-note-autor">Costam</div>
+    <h4 class="m-0">XXX</h4>
+    <div class="others-note-edited" style="text-align: right;">XXXX</div>
+     <div class="others-note-content">
+    </div>
+  </div>
+</div>
+{% endblock %}

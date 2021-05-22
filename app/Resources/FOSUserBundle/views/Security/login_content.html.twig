@@ -1,0 +1,62 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ url("fos_user_security_check") }}" method="post" class="login-form">
+
+    <span class="login-form-title p-b-53">
+        Sign In With
+    </span>
+    <a href="#" tabindex="-1" class="btn-face">
+        <i class="fa fa-facebook-official"></i>
+        Facebook
+    </a>
+
+    <a href="#" tabindex="-1" class="btn-google m-b-20">
+    <img src="/assets/img/icons/icon-google.webp" alt="GOOGLE">
+    Google
+    </a>
+    {% if error %}
+        <div class="inv-cred">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+    <div class="p-t-13 p-b-9">
+        <label class="txt1" for="username">{{ 'security.login.username'|trans }}</label>
+    </div>
+    <div class="wrap-input100 validate-input" data-validate="Username is required">
+        <input class="input100" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username">
+        <span class="focus-input100"></span>
+    </div>
+    <div class="p-t-13 p-b-9">
+        <label class="txt1" for="password">{{ 'security.login.password'|trans }}</label>
+        <a href="{{ url('fos_user_resetting_request') }}" tabindex="-1" class="txt2 bo1 m-l-5">
+            Forgot?
+        </a>
+    </div>
+    
+    <div class="wrap-input100 validate-input" data-validate="Password is required">
+        <input class="input100" type="password" id="password" name="_password" required="required" autocomplete="current-password">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="p-t-13 p-b-9">
+        <label class="pure-material-checkbox">
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+            <span class="txt1">{{ 'security.login.remember_me'|trans }}</span>
+        </label>
+    </div>
+    <div class="container-login100-form-btn">
+        <input class="login100-form-btn" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    </div>
+    <div class="w-member text-center">
+        <span class="txt2">
+            Not a member?
+        </span>
+        <a href="{{ url('user_register') }}" class="txt2 bo1">
+            Sign up now
+        </a>
+    </div>
+</form>
+<script>
+window.onload = () => document.getElementById('username').focus();
+</script>

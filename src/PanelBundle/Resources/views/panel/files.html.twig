@@ -1,0 +1,68 @@
+{% extends '@Panel/base.html.twig' %}
+{% block title_bar %}Files{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('assets/js/panel/file.js') }}"></script>
+{% endblock %}
+{% block body %}
+  {% for room in app.user.rooms %}
+    {% if room.files|length > 0 %}
+      <div class="file-room-name p-2">
+      <h5 class="mb-0"><a class="file-href-lnk" href="{{ path('room_url', {'url': room.url}) }}">{{ room.name }} <span class="go-to-url"><i class="fas fa-external-link-alt"></i> {{ room.url }}</span></a> <span class="by-autor">by {{ fullname(room.user) }}</span></h5>
+      </div>
+    {% endif %}
+    <div class="row">
+      {% for file in room.files %}
+        <div class="col-md-3 col-sm-4 col-6 file-col">
+          {% if (file.user == app.user) or room.user == app.user %}
+            <div class="file-remover" f-id="{{ file.id }}">
+              <i class="fas fa-times check-false"></i>
+            </div>
+          {% endif %}
+          <div class="file-download" f-url="{{ url('file_download', {fileName: file.fileName}) }}" onclick="window.location = this.getAttribute('f-url')">
+            <i class="fas fa-download"></i>
+          </div>
+          <a target="_blank" href="{{ url('file_serve', {fileName: file.fileName}) }}" style="text-decoration: none;">
+            <div class="card mt-3">
+              <div class="card-body">
+                <div class="others-note-autor">{{ fullname(file.user) }}</div>
+                <h4 class="m-0">{{ file.name }}</h4>
+                <div class="others-note-edited" style="text-align: right;">{{ file.date|date("H:i:s d-m-Y") }}</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+  <hr>
+  {% for member in app.user.roomMembers %}
+    {% if member.room.files|length > 0 %}
+      <div class="file-room-name p-2">
+      <h5 class="mb-0"><a class="file-href-lnk" href="{{ path('room_url', {'url': member.room.url}) }}">{{ member.room.name }} <span class="go-to-url"><i class="fas fa-external-link-alt"></i> {{ member.room.url }}</span></a> <span class="by-autor">by {{ fullname(member.room.user) }}</span></h5>
+      </div>
+    {% endif %}
+    <div class="row">
+      {% for file in member.room.files %}
+        <div class="col-md-3 col-sm-4 col-6 file-col">
+          {% if (file.user == app.user and member.writeRight) or member.room.user == app.user %}
+            <div class="note-remover">
+              <i class="fas fa-times check-false"></i>
+            </div>
+          {% endif %}
+          <div class="file-download" f-url="{{ url('file_download', {fileName: file.fileName}) }}" onclick="window.location = this.getAttribute('f-url')">
+            <i class="fas fa-download"></i>
+          </div>
+          <a target="_blank" href="{{ url('file_serve', {fileName: file.fileName}) }}" style="text-decoration: none;">
+            <div class="card mt-3 file-card">
+              <div class="card-body">
+                <div class="others-note-autor">{{ fullname(file.user) }}</div>
+                <h4 class="m-0">{{ file.name }}</h4>
+                <div class="others-note-edited" style="text-align: right;">{{ file.date|date("H:i:s d-m-Y") }}</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends '@Panel/base.html.twig' %}
+{% block active_panel_profile %}class="active"{% endblock %}
+{% block title_bar %}Profile{% endblock %}
+{% form_theme form _self %}
+{%- block form_row -%}
+  <div class="form-group">
+    {{- form_label(form) -}}
+    {{- form_widget(form, { 'attr': {'class': 'form-control'} }) -}}
+    {{- form_errors(form) -}}
+  </div>
+{%- endblock form_row -%}
+{% block body %}
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-user">
+            {{ form_start(pictureform, {'action': path('panel_profile'), 'attr': {'novalidate': 'novalidate', 'id': 'picture-form-id'}}) }}
+              <div class="image">
+                <img src="https://demos.creative-tim.com/paper-dashboard/assets/img/damir-bosnjak.jpg" alt="...">
+              </div>
+              <div class="card-body">
+                <div class="author">
+                <div class="image-upload">
+                  <label for="appbundle_user_picture">
+                    <img class="avatar border-gray" src="{% if app.user.pictureFilename is not empty %}{{ asset('uploads/profile-pictures/' ~ app.user.pictureFilename) }}{% else %}{{ defaultPicture }}{% endif %}" alt="Profile Picture">
+                  </label>
+                  {{ form_widget(pictureform.picture) }}
+                  {{ form_errors(pictureform.picture) }}
+                  <script>
+                  document.getElementById("appbundle_user_picture").onchange = function() {
+                      document.getElementById("picture-form-id").submit();
+                  };
+                  </script>
+                </div>
+                  <a href="#">
+                    <h5 class="title">
+                      {{ fullname(app.user) }}
+                    </h5>
+                  </a>
+                  <p class="description">
+                    @{{ app.user.username }}
+                  </p>
+                </div>
+                <p class="description text-center">
+                  "I like the way you work it
+                  <br> No diggity
+                  <br> I wanna bag it up"
+                </p>
+              </div>
+              <div class="card-footer">
+                <hr>
+                <div class="button-container">
+                  <div class="row">
+                    <div class="col ml-auto">
+                      <h5>{{ app.user.rooms|length }}
+                        <br>
+                        <small>Rooms</small>
+                      </h5>
+                    </div>
+                    <div class="col ml-auto mr-auto">
+                      <h5>{{ app.user.roomNotes|length }}
+                        <br>
+                        <small>Room Notes</small>
+                      </h5>
+                    </div>
+                    <div class="col mr-auto">
+                      <h5 class="text-capitalize">{{ app.user.plan.name }}
+                        <br>
+                        <small>Plan</small>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{ form_end(pictureform) }}
+            </div>
+            <div class="card" id="passChange">
+              <div class="card-header">
+                <h4 class="card-title">Change Password</h4>
+              </div>
+              <div class="card-body">
+                {% include '@Panel/profile/change_password.html.twig' %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card card-user">
+              <div class="card-header">
+                <h5 class="card-title">Edit Profile</h5>
+              </div>
+              <div class="card-body">
+                {{ form_start(form, {'action': path('panel_profile'), 'attr': {'novalidate': 'novalidate', 'class': 'profile-update-form'}}) }}
+                  <div class="row">
+                    {# <div class="col-md-5 pr-1">
+                      <div class="form-group">
+                        <label>Company (disabled)</label>
+                        <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
+                      </div>
+                    </div> #}
+                    <div class="col-md-6 pr-md-1">
+                      {{ form_row(form.username) }}
+                    </div>
+                    <div class="col-md-6 pl-md-1">
+                      {{ form_row(form.email) }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 pr-md-1">
+                      {{ form_row(form.firstName) }}
+                    </div>
+                    <div class="col-md-4 px-md-1">
+                      {{ form_row(form.lastName) }}
+                    </div>
+                    <div class="col-md-2 px-md-1">
+                      {{ form_row(form.activeColor) }}
+                    </div>
+                    <div class="col-md-3 pl-md-1">
+                      {{ form_row(form.startPage) }}
+                    </div>
+                  </div>
+                  {# <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 pr-1">
+                      <div class="form-group">
+                        <label>City</label>
+                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                      </div>
+                    </div>
+                    <div class="col-md-4 px-1">
+                      <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" class="form-control" placeholder="Country" value="Australia">
+                      </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                      <div class="form-group">
+                        <label>Postal Code</label>
+                        <input type="number" class="form-control" placeholder="ZIP Code">
+                      </div>
+                    </div>
+                  </div> #}
+                  <div class="row">
+                    <div class="col-md-12">
+                      {{ form_row(form.aboutMe) }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="update ml-auto mr-auto">
+                      <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+                    </div>
+                  </div>
+                {{ form_end(form) }}
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
